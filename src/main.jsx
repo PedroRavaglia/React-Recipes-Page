@@ -6,7 +6,7 @@ import './scss/styles.scss'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={"/React-Recipes-Page"}>
       <App />
     </BrowserRouter>
   </React.StrictMode>

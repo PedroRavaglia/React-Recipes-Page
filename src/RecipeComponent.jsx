@@ -7,6 +7,7 @@ export default function RecipeComponent({ recipeData, imgWidth }) {
                 <img src={recipeData.img_src} className='home card-img-top' />
             </Link>
             <div className='card-body'>
+                {/* <Link to={`/React-Recipes-Page/${recipeData.page_name}`}> */}
                 <Link to={`/${recipeData.page_name}`}>
                     <h3 className="card-title">{recipeData.name}</h3>
                 </Link>
