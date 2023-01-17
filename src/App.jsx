@@ -170,7 +170,7 @@ function App() {
       })
     })
   
-  const router = createBrowserRouter(router_array);
+  const router = createBrowserRouter(router_array, { basename: "/React-Recipes-Page" });
 
   return (
     <div className="App">
