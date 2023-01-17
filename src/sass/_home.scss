@@ -1,0 +1,345 @@
+@use "sass:math";
+@use "sass:map";
+@use 'variables';
+
+$flag-grid-gap: 4px;
+
+$grid-gap: (
+    "xxl-row": 40px,
+    "xxl-col": 60px,
+    "xl": 32px,
+    "lg-sm": 20px,
+    "xs": 10px
+);
+
+$xxl: (
+    "height-c-img": 480px,
+    "height-c-item": 540px,
+    "caption-top": 76%,
+    "width-col-home": calc((map.get(variables.$widths, "xxl") - map.get($grid-gap, "xxl-col")) / 2),
+);
+
+$xl: (
+    "height-c-img": 320px,
+    "height-c-item": 360px,
+    "caption-top": 65%,
+    "width-col-home": calc((map.get(variables.$widths, "xl") - map.get($grid-gap, "xl")) / 2),
+);
+
+$lg: (
+    "height-c-img": 300px,
+    "height-c-item": 350px,
+    "caption-top": 60%,
+    "width-col-home": calc((map.get(variables.$widths, "lg") - map.get($grid-gap, "lg-sm")) / 2),
+);
+
+$md: (
+    "height-c-img": 280px,
+    "height-c-item": 330px,
+    "caption-top": 63%,
+    "width-col-home": calc((map.get(variables.$widths, "md") - map.get($grid-gap, "lg-sm")) / 2),
+);
+
+$sm: (
+    "height-c-img": 280px,
+    "height-c-item": 330px,
+    "caption-top": 63%,
+    "width-col-home": calc((map.get(variables.$widths, "sm") - map.get($grid-gap, "lg-sm")) / 2),
+);
+
+$xs: (
+    "height-c-img": 230px,
+    "height-c-item": 260px,
+    "caption-top": 63%,
+    "width-col-home": calc((map.get(variables.$widths, "xs") - map.get($grid-gap, "xs")) / 2),
+);
+
+
+.home {
+    width: map-get(variables.$widths, "xxl");
+    margin: auto;
+}
+
+
+// Carousel
+//
+.c-item {
+    height: map.get($xxl, "height-c-item");
+    width: 100%;
+    border-radius: 10px;
+} 
+
+.c-item-info {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+.c-item-info p {
+    color: darkgray;
+    font-size: 18px;
+}
+
+.c-img {
+    height: map.get($xxl, "height-c-img");
+    object-fit: cover;
+
+}
+
+.carousel-caption {
+    background-color: white;
+    width: 400px;
+    height: 95px;
+    border-radius: 10px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    margin: 0 auto;
+    position: absolute;
+    top: map.get($xxl, "caption-top");
+}
+
+.carousel-caption .container {
+    position: absolute;
+    top: 50%;
+}
+
+.carousel-container {
+    margin: auto;
+    width: 100%;
+}
+
+.carousel-placeholder {
+    background-color: lightgrey; 
+    width: 100%;
+    height: map.get($xxl, "height-c-img");
+}
+
+
+// Category
+//
+.categories-container {
+    display: grid;
+    width: 100%;
+    justify-items: center;
+    justify-content: center;
+    row-gap: map-get($grid-gap, "xxl-row");
+    column-gap: map-get($grid-gap, "xxl-col");
+    grid-template-columns: repeat(2, map-get($xxl, "width-col-home"));
+}
+
+.category-card {
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 320/200;
+    overflow: hidden;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.category-img {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    object-fit: fill;
+}
+
+.centered {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translate(-50%, -50%);
+}
+
+
+// Areas
+//
+.areas-container {
+    display: grid;
+    width: map-get(variables.$widths, "xxl");
+    justify-items: center;
+    justify-content: center;
+    grid-gap: $flag-grid-gap;
+    grid-template-columns: repeat(9, calc((100% - $flag-grid-gap * 8) / 9));
+    margin: 0 auto;
+}
+
+.areas-container .btn {
+    width: 100%;
+}
+
+.c-buttons {
+    display: grid;
+    width: 100%;
+    justify-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(3, 25%);
+    grid-gap: 5px;
+}
+
+.flag {
+    width: 100%;
+    border: solid 1px black;
+}
+
+// Querys
+//
+@media (max-width: map-get(variables.$grid-breakpoints, "sm")) {
+    .home {
+        width: map-get(variables.$widths, "xs");
+    }
+
+    // Carousel
+    //
+    .c-img {
+        height: map.get($xs, "height-c-img");
+    }
+    .c-item {
+        height: map.get($xs, "height-c-item");
+    } 
+    .carousel-caption {
+        top: map.get($xs, "caption-top");
+        width: 290px;
+        height: 65px;
+        left: 0 !important; 
+        right: 0 !important; 
+        margin-left: auto !important; 
+        margin-right: auto !important; 
+    }
+    .carousel-caption h5 {
+        font-size: 18px;
+        margin-top: -10px;
+    }
+    .c-item-info p {
+        color: darkgray;
+        font-size: 16px;
+    }
+    .carousel-caption .container {
+        position: absolute;
+        top: 40%;
+    }
+    .carousel-placeholder {
+        height: map.get($xs, "height-c-img");
+    }
+
+    // Categories
+    //
+    .categories-container {
+        grid-template-columns: repeat(2, map-get($xs, "width-col-home"));
+        grid-gap: map-get($grid-gap, "xs");
+    }
+    .centered h5 {
+        font-size: 18px;
+        top: 25px;
+    }
+
+    // Areas
+    //
+    .c-buttons a {
+        font-size: 15px;
+    }
+    .areas-container {
+        width: map-get(variables.$widths, "xs");
+    }
+}
+
+@media (min-width: map-get(variables.$grid-breakpoints, "sm")) and (max-width: map-get(variables.$grid-breakpoints, "md")) {
+    .home {
+        width: map-get(variables.$widths, "sm");
+    }
+    .c-img {
+        height: map.get($sm, "height-c-img");
+    }
+    .c-item {
+        height: map.get($sm, "height-c-item");
+    } 
+    .carousel-caption {
+        top: map.get($sm, "caption-top");
+    }
+    .carousel-placeholder {
+        height: map.get($sm, "height-c-img");
+    }
+    .categories-container {
+        grid-template-columns: repeat(2, map-get($sm, "width-col-home"));
+        grid-gap: map-get($grid-gap, "lg-sm");
+    }
+    .areas-container {
+        width: map-get(variables.$widths, "sm");
+    }
+}
+
+@media (min-width: map-get(variables.$grid-breakpoints, "md")) and (max-width: map-get(variables.$grid-breakpoints, "lg")) {
+    .home {
+        width: map-get(variables.$widths, "md");
+    }
+    .c-img {
+        height: map.get($md, "height-c-img");
+    }
+    .c-item {
+        height: map.get($md, "height-c-item");
+    } 
+    .carousel-caption {
+        top: map.get($md, "caption-top");
+    }
+    .carousel-placeholder {
+        height: map.get($md, "height-c-img");
+    }
+    .categories-container {
+        grid-template-columns: repeat(2, map-get($md, "width-col-home"));
+        grid-gap: map-get($grid-gap, "lg-sm");
+    }
+    .areas-container {
+        width: map-get(variables.$widths, "md");
+    }
+}
+
+@media (min-width: map-get(variables.$grid-breakpoints, "lg")) and (max-width: map-get(variables.$grid-breakpoints, "xl")) {
+    .home {
+        width: map-get(variables.$widths, "lg");
+    }
+    .c-img {
+        height: map.get($lg, "height-c-img");
+    }
+    .c-item {
+        height: map.get($lg, "height-c-item");
+    } 
+    .carousel-caption {
+        top: map.get($lg, "caption-top");
+    }
+    .carousel-placeholder {
+        height: map.get($lg, "height-c-img");
+    }
+    .categories-container {
+        grid-template-columns: repeat(2, map-get($lg, "width-col-home"));
+        grid-gap: map-get($grid-gap, "lg-sm");
+    }
+    .areas-container {
+        width: map-get(variables.$widths, "lg");
+    }
+}
+
+@media (min-width: map-get(variables.$grid-breakpoints, "xl")) and (max-width: map-get(variables.$grid-breakpoints, "xxl")) {
+    .home {
+        width: map-get(variables.$widths, "xl");
+    }
+    .c-img {
+        height: map.get($xl, "height-c-img");
+    }
+    .c-item {
+        height: map.get($xl, "height-c-item");
+    } 
+    .carousel-caption {
+        top: map.get($xl, "caption-top");
+    }
+    .carousel-placeholder {
+        height: map.get($xl, "height-c-img");
+    }
+    .categories-container {
+        grid-template-columns: repeat(2, map-get($xl, "width-col-home"));
+        grid-gap: map-get($grid-gap, "xl");
+    }
+    .areas-container {
+        width: map-get(variables.$widths, "xl");
+    }
+}
