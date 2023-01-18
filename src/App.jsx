@@ -7,10 +7,7 @@ import SearchPage from './Components/SearchPage';
 import AreaPage from './Components/AreaPage';
 import SavedRecipes from './Components/SavedRecipes';
 import { fetchByLetters, fetchCategories, fetchAreas, fetchRecommended } from './fetchFunctions'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 export const ACTIONS = {
   FILTER: 'filter',
@@ -131,50 +128,75 @@ function App() {
     }
   }, []);
 
-  let router_array = [
-    {
-      path: "/",
-      element: <Home {...{state, dispatch}} />,
-    },
-    {
-      path: "recipes",
-      element: <SearchPage {...{state, dispatch}} />,
-    },
-    {
-      path: "saved",
-      element: <SavedRecipes {...{state, dispatch}} />,
-    },
-  ];
-
-  if (state.recipes)
-    state.recipes.map((recipe, i) => {
-      router_array.push({
-        path: `${recipe.idMeal}`,
-        element: <RecipePage {...{recipe, state, dispatch, recipes: state.recipes}} />
-      })
-    })
-
-  if (state.categories)
-    state.categories.map((category, i) => {
-      router_array.push({
-        path: `${category.strCategory}`,
-        element: <CategoryPage {...{category, recipesPerPage, state, dispatch}} />
-      })
-    })
-
-  if (state.areas)
-    state.areas.map((area, i) => {
-      router_array.push({
-        path: `${area}`,
-        element: <AreaPage {...{area, recipesPerPage, state, dispatch}} />
-      })
-    })
-  
-  const router = createBrowserRouter(router_array, { basename: "/React-Recipes-Page" });
-
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <Routes>
+        <Route 
+          path="/" 
+          element={<Home {...{state, dispatch}} />}
+        >
+        </Route>
+
+        <Route 
+          path="/recipes"
+          element={<SearchPage {...{state, dispatch}} />}
+        >
+        </Route>
+
+        <Route 
+          path="/saved"
+          element={<SavedRecipes {...{state, dispatch}} />}
+        >
+        </Route>
+
+        {
+          state.recipes ?
+            state.recipes.map((recipe, i) => {
+              return (
+                <Route 
+                  path={`/${recipe.idMeal}`}
+                  element={<RecipePage {...{recipe, state, dispatch, recipes: state.recipes}} />}
+                  key={i}
+                >
+                </Route>
+              )
+            })
+            :
+            <></>
+        }
+
+        {
+          state.categories ?
+            state.categories.map((category, i) => {
+              return (
+                <Route 
+                  path={`/${category.strCategory}`} 
+                  element={<CategoryPage {...{category, recipesPerPage, state, dispatch}} />} 
+                  key={i}
+                >
+                </Route>
+              )
+            })
+            :
+            <></>
+        }
+
+        {
+          state.areas ?
+            state.areas.map((area, i) => {
+              return (
+                <Route 
+                  path={`/${area}`} 
+                  element={<AreaPage {...{area, recipesPerPage, state, dispatch}} />} 
+                  key={i}
+                >
+                </Route>
+              )
+            })
+            :
+            <></>
+        }
+      </Routes>
     </div>
   )
 }
