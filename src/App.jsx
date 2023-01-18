@@ -18,6 +18,7 @@ export const ACTIONS = {
   FETCH_RECIPES: 'fetch-recipes',
   FETCH_RECOMMENDED: 'fetch-recomended',
   SAVE_RECIPE: 'save-recipe',
+  GET_SAVED_RECIPES: 'get-saved-recipes',
   REMOVE_RECIPE: 'remove-recipe'
 }
 
@@ -83,6 +84,13 @@ function reducer(state, { type, payload }) {
         savedRecipes: [...state.savedRecipes, payload]
       }
 
+    case ACTIONS.GET_SAVED_RECIPES:
+      console.log('get', payload)
+      return {
+        ...state,
+        savedRecipes: payload
+      }
+      
     case ACTIONS.REMOVE_RECIPE:
       const del_ind = state.savedRecipes.findIndex(recipe => recipe.idMeal == payload.idMeal);
       let new_savedRecipes = state.savedRecipes;
@@ -128,11 +136,22 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if(!effectCalled.current[1]) {
+      effectCalled.current[1] = true;
+      const saved_recipes = window.localStorage.getItem('SAVED_RECIPES');
+      if ( saved_recipes !== null ) dispatch({ type: ACTIONS.GET_SAVED_RECIPES, payload: JSON.parse(saved_recipes)});
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('SAVED_RECIPES', JSON.stringify(state.savedRecipes));
+  }, [state.savedRecipes])
+
   return (
     <div className="App">
       <Routes>
         <Route 
-          exact
           path="/" 
           element={<Home {...{state, dispatch}} />}
         >
