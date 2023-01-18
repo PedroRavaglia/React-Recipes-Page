@@ -7,9 +7,7 @@ import SearchPage from './Components/SearchPage';
 import AreaPage from './Components/AreaPage';
 import SavedRecipes from './Components/SavedRecipes';
 import { fetchByLetters, fetchCategories, fetchAreas, fetchRecommended } from './fetchFunctions'
-import { Routes, Route, Router,
-  createBrowserRouter, RouterProvider, HashRouter
- } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 export const ACTIONS = {
   FILTER: 'filter',
@@ -129,47 +127,6 @@ function App() {
       fetchByLetters(letters, dispatch);
     }
   }, []);
-
-  let router_array = [
-    {
-      path: "/",
-      element: <Home {...{state, dispatch}} />,
-    },
-    {
-      path: "recipes",
-      element: <SearchPage {...{state, dispatch}} />,
-    },
-    {
-      path: "saved",
-      element: <SavedRecipes {...{state, dispatch}} />,
-    },
-  ];
-
-  // if (state.recipes)
-  //   state.recipes.map((recipe, i) => {
-  //     router_array.push({
-  //       path: `${recipe.idMeal}`,
-  //       element: <RecipePage {...{recipe, state, dispatch, recipes: state.recipes}} />
-  //     })
-  //   })
-
-  // if (state.categories)
-  //   state.categories.map((category, i) => {
-  //     router_array.push({
-  //       path: `${category.strCategory}`,
-  //       element: <CategoryPage {...{category, recipesPerPage, state, dispatch}} />
-  //     })
-  //   })
-
-  // if (state.areas)
-  //   state.areas.map((area, i) => {
-  //     router_array.push({
-  //       path: `${area}`,
-  //       element: <AreaPage {...{area, recipesPerPage, state, dispatch}} />
-  //     })
-  //   })
-
-  // const router = createBrowserRouter(router_array, { basename: "/React-Recipes-Page" });
 
   return (
     <div className="App">
